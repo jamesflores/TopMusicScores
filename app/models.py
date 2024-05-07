@@ -25,3 +25,23 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
+
+
+class SheetMusic(models.Model):
+    rank = models.FloatField()
+    item_url = models.URLField()
+    cover_url = models.URLField()
+    title = models.CharField(max_length=255)
+    artist = models.CharField(max_length=255)
+    instruments = models.CharField(max_length=255)
+    format = models.CharField(max_length=255)
+    genres = models.CharField(max_length=255)
+    lead_time = models.CharField(max_length=255)
+    list_price = models.DecimalField(max_digits=6, decimal_places=2)
+    publisher = models.CharField(max_length=255)
+    isbn = models.CharField(max_length=255, blank=True, null=True)
+    item_type = models.CharField(max_length=255)
+    description = models.TextField()
+
+    def __str__(self):
+        return f'{self.title} - {self.artist} ({self.instruments}) | {self.publisher} | ${self.list_price}'

@@ -4,3 +4,6 @@ app/__pycache__
 app/migrations/__pycache__
 smp/__pycache__
 .env
+app/management/commands/__pycache__
+data
+staticfiles
