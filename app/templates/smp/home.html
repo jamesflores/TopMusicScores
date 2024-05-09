@@ -25,6 +25,7 @@
 </div>
 <div class="row">
     <div class="pagination justify-content-center">
+        {% spaceless %}
         <div class="btn-group" role="group">
             {% if page_obj.has_previous %}
                 <a class="btn btn-secondary" href="?page=1">&laquo; first</a>
@@ -44,6 +45,7 @@
                 <a class="btn btn-secondary" href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
             {% endif %}
         </div>
+        {% endspaceless %}
     </div>
 </div>
 {% endblock %}
