@@ -1,6 +1,8 @@
 import csv
 from django.core.management.base import BaseCommand, CommandError
 from app.models import SheetMusic
+from django.utils.text import slugify
+import random
 
 class Command(BaseCommand):
     help = 'Imports sheet music data from a CSV file'
@@ -19,6 +21,7 @@ class Command(BaseCommand):
                         item_url=row['item-url'],
                         cover_url=row['cover-url'],
                         title=row['title'],
+                        title_slug=slugify(row['title']) + '-' + str(random.randint(10000, 99999)),
                         artist=row['artist'],
                         instruments=row['instruments'],
                         format=row['format'],

@@ -2,5 +2,48 @@
 {% load static %}
 
 {% block content %}
+<div class="row">
+    <div class="col-12">
+        <h2>100,000+ top selling sheet music titles across the world</h2>
+        <p>We have curated the most popular sheet music in the world...so you don't have to look anywhere else!</p>
+    </div>
+</div>
+<div class="row">
+    {% for sheet_music in page_obj.object_list %}
+        <div class="col-sm-3 mb-4">
+            <div class="card h-100">
+                <a href="{% url 'product' title_slug=sheet_music.title_slug %}">
+                    <img src="{{ sheet_music.cover_url }}" class="card-img-top" alt="{{ sheet_music.title }}" style="width: 100%; height: auto; object-fit: cover;">
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title"><a href="{% url 'product' title_slug=sheet_music.title_slug %}">{{ sheet_music.title }}</a></h5>
+                    <p class="card-text">{{ sheet_music.artist }}</p>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+<div class="row">
+    <div class="pagination justify-content-center">
+        <div class="btn-group" role="group">
+            {% if page_obj.has_previous %}
+                <a class="btn btn-secondary" href="?page=1">&laquo; first</a>
+                <a class="btn btn-secondary" href="?page={{ page_obj.previous_page_number }}">previous</a>
+            {% endif %}
 
+            {% for i in page_obj.paginator.page_range %}
+                {% if page_obj.number == i %}
+                    <button type="button" class="btn btn-primary">{{ i }}</button>
+                {% elif i > page_obj.number|add:"-5" and i < page_obj.number|add:"5" %}
+                    <a class="btn btn-secondary" href="?page={{ i }}">{{ i }}</a>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+                <a class="btn btn-secondary" href="?page={{ page_obj.next_page_number }}">next</a>
+                <a class="btn btn-secondary" href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
 {% endblock %}

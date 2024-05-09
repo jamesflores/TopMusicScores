@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
-from django.db import models
+from django.db import IntegrityError, models
+from django.utils.text import slugify
 
 
 class UserManager(BaseUserManager):
@@ -32,6 +33,7 @@ class SheetMusic(models.Model):
     item_url = models.URLField()
     cover_url = models.URLField()
     title = models.CharField(max_length=255)
+    title_slug = models.SlugField(max_length=255, blank=True, null=True)
     artist = models.CharField(max_length=255)
     instruments = models.CharField(max_length=255)
     format = models.CharField(max_length=255)

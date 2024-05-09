@@ -1,49 +1,28 @@
 from django.shortcuts import render
+from django.core.paginator import Paginator
 from app.models import SheetMusic
+from django.shortcuts import get_object_or_404
 
 
 def home(request):
-    return render(request, 'smp/home.html')
+    sheet_music = SheetMusic.objects.all().order_by('-rank')
+    paginator = Paginator(sheet_music, 20)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'smp/home.html', {
+        'page_obj': page_obj
+    })
 
 
-def genres(request):
-    return render(request, 'smp/genres.html')
-
-
-def genre_detail(request, genre_name):
-    return render(request, 'smp/genre_detail.html', {'genre_name': genre_name})
-
-
-def publishers(request):
-    return render(request, 'smp/publishers.html')
-
-
-def publisher_detail(request, publisher_name):
-    return render(request, 'smp/publisher_detail.html', {'publisher_name': publisher_name})
-
-
-def instruments(request):
-    return render(request, 'smp/instruments.html')
-
-
-def instrument_detail(request, instrument_name):
-    return render(request, 'smp/instrument_detail.html', {'instrument_name': instrument_name})
-
-
-def product_view(request, product_id):
-    product = SheetMusic.objects.get(pk=product_id)
-    context = {}
-    context['product'] = product
-    return render(request, 'smp/product_detail.html', context)
-
-
-def search_results(request):
-    return render(request, 'smp/search_results.html')
+def product_view(request, title_slug):
+    product = get_object_or_404(SheetMusic, title_slug=title_slug)
+    upsell_products = SheetMusic.objects.exclude(title_slug=title_slug).order_by('?')[:8]
+    return render(request, 'smp/product_detail.html', {
+        'product': product,
+        'upsell_products': upsell_products
+    })
 
 
 def about(request):
     return render(request, 'smp/about.html')
-
-
-def contact(request):
-    return render(request, 'smp/contact.html')
