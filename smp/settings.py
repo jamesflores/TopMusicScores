@@ -34,7 +34,10 @@ DEBUG = os.getenv('DEBUG', False) == 'True'
 
 ALLOWED_HOSTS = ['*']
 
-SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')  # requires full SSL termination (not flexible)
+USE_X_FORWARDED_HOST = True
+USE_X_FORWARDED_PORT = True
+ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
 
 
 # Application definition
