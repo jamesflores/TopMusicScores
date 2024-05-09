@@ -6,12 +6,12 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://topmusicscores.com/product/{{ product.title_slug }}">
     <meta property="og:title" content="{{ product.title }} - {{ product.artist }} (${{ product.list_price }}) | TopMusicScores.com">
-    <meta property="og:description" content="{{ product.description }}">
+    <meta property="og:description" content="{{ product.description|striptags }}">
     <meta property="og:image" content="{{ product.cover_url }}">
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://topmusicscores.com/product/{{ product.title_slug }}">
     <meta property="twitter:title" content="{{ product.title }} - {{ product.artist }} (${{ product.list_price }}) | TopMusicScores.com">
-    <meta property="twitter:description" content="{{ product.description }}">
+    <meta property="twitter:description" content="{{ product.description|striptags }}">
     <meta property="twitter:image" content="{{ product.cover_url }}">
 {% endblock %}
 
