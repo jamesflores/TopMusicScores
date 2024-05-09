@@ -23,7 +23,7 @@
     <div class="col-md-9">
         <h1>{{ product.title }}</h1>
         <p>{{ product.artist }}</p>
-        <p>{{ product.description }}</p>
+        <p>{{ product.description|safe }}</p>
         <a href="{{ product.item_url }}" class="btn btn-primary btn-lg" target="_blank">Buy now for ${{ product.list_price }}</a>
     </div>
 </div>
