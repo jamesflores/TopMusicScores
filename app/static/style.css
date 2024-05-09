@@ -1,0 +1,13 @@
+body {
+    padding-top: 5rem;
+}
+
+.navbar-brand img {
+    height: 30px; 
+    width: auto;
+    margin-right: 4px;
+}
+
+.pac-container {
+    z-index: 2000 !important;  /* above the navbar's z-index */
+}
