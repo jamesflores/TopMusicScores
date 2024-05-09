@@ -11,6 +11,9 @@ class Command(BaseCommand):
         parser.add_argument('csv_file', type=str, help='The CSV file path')
 
     def handle(self, *args, **options):
+        # clear existing data
+        SheetMusic.objects.all().delete()
+
         file_path = options['csv_file']
         try:
             with open(file_path, newline='', encoding='utf-8') as csvfile:
@@ -33,6 +36,8 @@ class Command(BaseCommand):
                         item_type=row['item_type'],
                         description=row['description']
                     )
+                    print(f'Imported {row["title"]} ({row["item-url"]})')
+
                 self.stdout.write(self.style.SUCCESS('Successfully imported sheet music data'))
         except Exception as e:
             raise CommandError(f'Error importing data: {e}')
