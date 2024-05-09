@@ -6,20 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/united/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'style.css' %}">
-    <title>{% block title %}SelectScores - 100,000+ top selling sheet music titles across the world{% endblock %}</title>
-    <meta name="description" content="SelectScores is your dedicated resource for exploring a comprehensive collection of sheet music.">
-    <meta name="author" content="SelectScores">
+    <title>{% block title %}TopMusicScores - 100,000+ top selling sheet music titles across the world{% endblock %}</title>
+    <meta name="description" content="TopMusicScores is your dedicated resource for exploring a comprehensive collection of sheet music.">
+    <meta name="author" content="TopMusicScores">
     <link rel="icon" href="{% static 'images/music-note-list.svg' %}">
     {% block seo %}
         <meta property="og:type" content="website">
-        <meta property="og:url" content="https://selectscores.com/">
-        <meta property="og:title" content="SelectScores - 100,000+ top selling sheet music titles across the world">
-        <meta property="og:description" content="SelectScores is your dedicated resource for exploring a comprehensive collection of sheet music.">
+        <meta property="og:url" content="https://topmusicscores.com/">
+        <meta property="og:title" content="TopMusicScores - 100,000+ top selling sheet music titles across the world">
+        <meta property="og:description" content="TopMusicScores is your dedicated resource for exploring a comprehensive collection of sheet music.">
         <meta property="og:image" content="{% static 'images/sheetmusic.png' %}">
         <meta property="twitter:card" content="summary_large_image">
-        <meta property="twitter:url" content="https://selectscores.com/">
-        <meta property="twitter:title" content="SelectScores - 100,000+ top selling sheet music titles across the world">
-        <meta property="twitter:description" content="SelectScores is your dedicated resource for exploring a comprehensive collection of sheet music.">
+        <meta property="twitter:url" content="https://topmusicscores.com/">
+        <meta property="twitter:title" content="TopMusicScores - 100,000+ top selling sheet music titles across the world">
+        <meta property="twitter:description" content="TopMusicScores is your dedicated resource for exploring a comprehensive collection of sheet music.">
         <meta property="twitter:image" content="{% static 'images/sheetmusic.png' %}">
     {% endblock %}
     {% block script %}
@@ -35,7 +35,7 @@
                     <path d="M11 2.82a1 1 0 0 1 .804-.98l3-.6A1 1 0 0 1 16 2.22V4l-5 1z"/>
                     <path fill-rule="evenodd" d="M0 11.5a.5.5 0 0 1 .5-.5H4a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5m0-4A.5.5 0 0 1 .5 7H8a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5m0-4A.5.5 0 0 1 .5 3H8a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5"/>
                   </svg>
-                SelectScores
+                TopMusicScores
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -43,13 +43,13 @@
             <div class="collapse navbar-collapse" id="navbar">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'home' %}">Home</a>
+                        <a class="nav-link" href="{% url 'home' %}">Sheet Music</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'about' %}">About</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="mailto:hello@selectscores.com">Contact</a>
+                        <a class="nav-link" href="mailto:hello@topmusicscores.com">Contact</a>
                     </li>
                 </ul>
             </div>
@@ -63,7 +63,7 @@
 
     <footer class="footer mt-4 pt-4 border-top text-center">
         <div class="container">
-            <p class="text-muted small">&copy; <span id="copyright-year">2024</span> SelectScores. All rights reserved.</p>
+            <p class="text-muted small">&copy; <span id="copyright-year">2024</span> TopMusicScores.com - All rights reserved.</p>
         </div>
     </footer>
 </body>
