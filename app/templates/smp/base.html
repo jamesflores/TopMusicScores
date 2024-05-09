@@ -25,6 +25,15 @@
     {% endblock %}
     {% block script %}
     {% endblock %}
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VZ9ED94J1B"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-VZ9ED94J1B');
+    </script>
 </head>
 <body>
     <nav class="navbar navbar-expand-md navbar-dark bg-primary fixed-top">
