@@ -33,6 +33,7 @@ def search(request):
     query = request.GET.get('q')
     
     if query:
+        query = query.strip()
         search_query = (
             Q(artist__icontains=query) |
             Q(title__icontains=query) |
