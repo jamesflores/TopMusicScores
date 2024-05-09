@@ -1,0 +1,44 @@
+{% extends "smp/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6 mb-3">
+        <h2>Search for sheet music</h2>
+        <form class="form-inline my-4" method="GET" action="{% url 'search' %}">
+            <div class="input-group">
+                <input class="form-control" type="search" aria-label="Search" id="q" name="q" autofocus>
+                <div class="input-group-append">
+                    <button class="btn btn-outline-primary" type="submit">Search</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% if query %}
+    <div class="row mb-3">
+        <h3>Search results for "{{ query }}"</h3>
+    </div>
+    <div class="row">
+        {% if not results %}
+            <div class="col">
+                <p>Sorry, nothing found.</p>
+            </div>
+        {% else %}
+            {% for sheet_music in results %}
+                <div class="col-sm-3 mb-4">
+                    <div class="card h-100">
+                        <a href="{% url 'product' title_slug=sheet_music.title_slug %}">
+                            <img src="{{ sheet_music.cover_url }}" class="card-img-top" alt="{{ sheet_music.title }}" style="width: 100%; height: auto; object-fit: cover;">
+                        </a>
+                        <div class="card-body">
+                            <h5 class="card-title"><a href="{% url 'product' title_slug=sheet_music.title_slug %}">{{ sheet_music.title }}</a></h5>
+                            <p class="card-text">{{ sheet_music.artist }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %} 
+    </div>
+{% endif %}
+{% endblock %}
