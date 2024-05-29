@@ -24,6 +24,11 @@
         <h1>{{ product.title }}</h1>
         <p>{{ product.artist }}</p>
         <p>{{ product.description|safe }}</p>
+        <p>
+            <a href="https://affiliates.sheetmusicplus.com/easyrebates?referral_id=478282">
+                <img alt="Sheet Music Plus Easy Rebates" border="0" src="{{ ad_image }}" class="img-fluid">
+            </a>
+        </p>
         <a href="{{ product.item_url }}" class="btn btn-primary btn-lg" target="_blank">Buy now for ${{ product.list_price }}</a>
     </div>
 </div>

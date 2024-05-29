@@ -1,3 +1,4 @@
+import random
 from django.shortcuts import render
 from django.core.paginator import Paginator
 from app.models import SheetMusic
@@ -19,9 +20,15 @@ def home(request):
 def product_view(request, title_slug):
     product = get_object_or_404(SheetMusic, title_slug=title_slug)
     upsell_products = SheetMusic.objects.exclude(title_slug=title_slug).order_by('?')[:8]
+    ad_images = [
+        'https://assets.sheetmusicplus.com/banner/ezr/student/featured_250x250.jpg',
+        'https://assets.sheetmusicplus.com/banner/ezr/teacher/featured_250x250.jpg',
+        'https://assets.sheetmusicplus.com/banner/ezr/choir/CD_AF_250x250_v1.jpg',
+    ]
     return render(request, 'smp/product_detail.html', {
         'product': product,
-        'upsell_products': upsell_products
+        'upsell_products': upsell_products,
+        'ad_image': random.choice(ad_images)
     })
 
 
