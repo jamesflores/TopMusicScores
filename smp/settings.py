@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app',
+    'django_crontab',
 ]
 
 MIDDLEWARE = [
@@ -143,3 +144,15 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 ELASTICSEARCH_URL = os.getenv('ELASTICSEARCH_URL')
 ELASTICSEARCH_INDEX = os.getenv('ELASTICSEARCH_INDEX', 'sheet_music')
+
+
+# Marvin
+
+MARVIN_OPENAI_API_KEY = os.getenv('MARVIN_OPENAI_API_KEY')
+
+
+# django-crontab settings
+
+#CRONJOBS = [
+#    ('0 1 * * *', 'django.core.management.call_command', ['generate_news_item']),
+#]
