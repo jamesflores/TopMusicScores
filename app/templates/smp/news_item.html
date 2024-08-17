@@ -23,7 +23,7 @@
     </div>
     <div class="col-md-9">
         <h2>{{ news_item.title }}</h2>
-        <p>{{ news_item.published }}</p>
+        <p>{{ news_item.published|date }}</p>
         <p>{{ product.artist }}</p>
         <a href="{{ product.item_url }}" class="btn btn-primary btn-sm" target="_blank">Buy now for ${{ product.list_price }}</a>
         <p class="mt-3">{{ news_item.content|nl2br|safe  }}</p>
