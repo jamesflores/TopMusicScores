@@ -52,7 +52,7 @@ class SheetMusic(models.Model):
 class NewsItem(models.Model):
     title = models.TextField()
     title_slug = models.SlugField(max_length=500, blank=True, null=True, unique=True)
-    published = models.DateField(auto_now=True)
+    published = models.DateTimeField(auto_now=True)
     author = models.TextField()
     content = models.TextField()
     related_product = models.ForeignKey(SheetMusic, on_delete=models.DO_NOTHING, blank=True, null=True)
