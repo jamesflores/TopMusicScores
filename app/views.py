@@ -1,7 +1,7 @@
 import random
 from django.shortcuts import render
 from django.core.paginator import Paginator
-from app.models import SheetMusic
+from app.models import SheetMusic, NewsItem
 from django.shortcuts import get_object_or_404
 from django.db.models import Q
 
@@ -58,4 +58,36 @@ def search(request):
     return render(request, 'smp/search.html', {
         'query': query,
         'results': queryset if query else None
+    })
+
+
+def news(request):
+    news_items = NewsItem.objects.all().order_by('-published')
+    paginator = Paginator(news_items, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    ad_images = [
+        'https://assets.sheetmusicplus.com/banner/ezr/student/featured_250x250.jpg',
+        'https://assets.sheetmusicplus.com/banner/ezr/teacher/featured_250x250.jpg',
+        'https://assets.sheetmusicplus.com/banner/ezr/choir/CD_AF_250x250_v1.jpg',
+    ]
+    return render(request, 'smp/news.html', {
+        'page_obj': page_obj,
+        'ad_image': random.choice(ad_images)
+    })
+
+
+def news_item(request, title_slug):
+    news_item = get_object_or_404(NewsItem, title_slug=title_slug)
+    upsell_products = SheetMusic.objects.exclude(title_slug=title_slug).order_by('?')[:8]
+    ad_images = [
+        'https://assets.sheetmusicplus.com/banner/ezr/student/featured_250x250.jpg',
+        'https://assets.sheetmusicplus.com/banner/ezr/teacher/featured_250x250.jpg',
+        'https://assets.sheetmusicplus.com/banner/ezr/choir/CD_AF_250x250_v1.jpg',
+    ]
+    return render(request, 'smp/news_item.html', {
+        'news_item': news_item,
+        'product': news_item.related_product,
+        'upsell_products': upsell_products,
+        'ad_image': random.choice(ad_images)
     })

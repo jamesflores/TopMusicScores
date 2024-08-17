@@ -1,0 +1,64 @@
+{% extends "smp/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h2>The latest news from TopMusicScores</h2>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-8">
+        {% for news in page_obj %}
+            <div class="card mb-3">
+                <div class="row no-gutters">
+                    <div class="col-md-4">
+                        <a href="{% url 'news_item' news.title_slug %}">
+                            <img src="{{ news.related_product.cover_url }}" class="card-img" alt="{{ news.related_product.title_slug}}">
+                        </a>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title"><a href="{% url 'news_item' news.title_slug %}">{{ news.title }}</a></h5>
+                            <p class="card-text">{{ news.published }}</p>
+                            <p class="card-text">{{ news.content|truncatewords:50 }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="col-md-4">
+        <div class="sticky-top" style="top: 20px;">
+            <a href="https://affiliates.sheetmusicplus.com/easyrebates?referral_id=478282">
+                <img alt="Sheet Music Plus Easy Rebates" border="0" src="{{ ad_image }}" class="img-fluid">
+            </a>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="pagination justify-content-center">
+        {% spaceless %}
+        <div class="btn-group" role="group">
+            {% if page_obj.has_previous %}
+                <a class="btn btn-secondary" href="?page=1">&laquo; first</a>
+                <a class="btn btn-secondary" href="?page={{ page_obj.previous_page_number }}">previous</a>
+            {% endif %}
+
+            {% for i in page_obj.paginator.page_range %}
+                {% if page_obj.number == i %}
+                    <button type="button" class="btn btn-primary">{{ i }}</button>
+                {% elif i > page_obj.number|add:"-5" and i < page_obj.number|add:"5" %}
+                    <a class="btn btn-secondary" href="?page={{ i }}">{{ i }}</a>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+                <a class="btn btn-secondary" href="?page={{ page_obj.next_page_number }}">next</a>
+                <a class="btn btn-secondary" href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </div>
+        {% endspaceless %}
+    </div>
+</div>
+{% endblock %}
