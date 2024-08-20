@@ -1,6 +1,7 @@
 import random
 from django.shortcuts import render
 from django.core.paginator import Paginator
+from django.urls import reverse
 from app.models import SheetMusic, NewsItem
 from django.shortcuts import get_object_or_404
 from django.db.models import Q
@@ -13,7 +14,8 @@ def home(request):
     page_obj = paginator.get_page(page_number)
 
     return render(request, 'smp/home.html', {
-        'page_obj': page_obj
+        'page_obj': page_obj,
+        'rss_feed_url': reverse('news_feed')
     })
 
 
@@ -28,7 +30,8 @@ def product_view(request, title_slug):
     return render(request, 'smp/product_detail.html', {
         'product': product,
         'upsell_products': upsell_products,
-        'ad_image': random.choice(ad_images)
+        'ad_image': random.choice(ad_images),
+        'rss_feed_url': reverse('news_feed')
     })
 
 
@@ -57,7 +60,8 @@ def search(request):
 
     return render(request, 'smp/search.html', {
         'query': query,
-        'results': queryset if query else None
+        'results': queryset if query else None,
+        'rss_feed_url': reverse('news_feed')
     })
 
 
@@ -73,7 +77,8 @@ def news(request):
     ]
     return render(request, 'smp/news.html', {
         'page_obj': page_obj,
-        'ad_image': random.choice(ad_images)
+        'ad_image': random.choice(ad_images),
+        'rss_feed_url': reverse('news_feed')
     })
 
 
@@ -89,5 +94,6 @@ def news_item(request, title_slug):
         'news_item': news_item,
         'product': news_item.related_product,
         'upsell_products': upsell_products,
-        'ad_image': random.choice(ad_images)
+        'ad_image': random.choice(ad_images),
+        'rss_feed_url': reverse('news_feed')
     })
