@@ -1,5 +1,7 @@
 from django.urls import path
 from . import views
+from app.feeds import LatestNewsFeed
+
 
 urlpatterns = [
     path('', views.home, name='home'),
@@ -8,4 +10,5 @@ urlpatterns = [
     path('search/', views.search, name='search'),
     path('news/', views.news, name='news'),
     path('news/<str:title_slug>/', views.news_item, name='news_item'),
+    path('rss/news/', LatestNewsFeed(), name='news_feed'),
 ]
