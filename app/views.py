@@ -8,14 +8,42 @@ from django.db.models import Q
 
 
 def home(request):
-    sheet_music = SheetMusic.objects.all().order_by('-rank')
-    paginator = Paginator(sheet_music, 20)
+    order_by = request.GET.get('order_by', '-rank')  # default to popularity
+    items_per_page = int(request.GET.get('items_per_page', 20))
+    
+    # Define valid ordering options
+    valid_order_fields = {
+        'rank': 'Popularity (Low to High)',
+        '-rank': 'Popularity (High to Low)',
+        'title': 'Title (A-Z)',
+        '-title': 'Title (Z-A)',
+        'artist': 'Artist (A-Z)',
+        '-artist': 'Artist (Z-A)',
+        'list_price': 'Price (Low to High)',
+        '-list_price': 'Price (High to Low)',
+    }
+    
+    # Define valid items per page options
+    per_page_choices = [20, 50, 100, 200, 500]
+    
+    if order_by not in valid_order_fields:
+        order_by = '-rank'
+    
+    if items_per_page not in per_page_choices:
+        items_per_page = 20
+    
+    sheet_music = SheetMusic.objects.all().order_by(order_by)
+    paginator = Paginator(sheet_music, items_per_page)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
     return render(request, 'smp/home.html', {
         'page_obj': page_obj,
-        'rss_feed_url': reverse('news_feed')
+        'rss_feed_url': reverse('news_feed'),
+        'order_by': order_by,
+        'valid_order_fields': valid_order_fields,
+        'items_per_page': items_per_page,
+        'per_page_choices': per_page_choices,
     })
 
 
