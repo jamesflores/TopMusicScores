@@ -8,16 +8,52 @@
         <p>We have curated the most popular sheet music in the world...so you don't have to look anywhere else!</p>
     </div>
 </div>
+
+<div class="row mb-4">
+    <div class="col-3">
+        <!-- Ordering dropdown -->
+        <form method="get" class="flex items-center">
+            <label for="order_by" class="mr-2">Order by:</label>
+            <select name="order_by" onchange="this.form.submit()" class="form-select">
+                {% for value, label in valid_order_fields.items %}
+                    <option value="{{ value }}" {% if order_by == value %}selected{% endif %}>
+                        {{ label }}
+                    </option>
+                {% endfor %}
+            </select>
+            <input type="hidden" name="items_per_page" value="{{ items_per_page }}">
+        </form>
+    </div>
+    <div class="col-3">
+        <!-- Items per page dropdown -->
+        <form method="get" class="flex items-center">
+            <label for="items_per_page" class="mr-2">Items per page:</label>
+            <select name="items_per_page" onchange="this.form.submit()" class="form-select">
+                {% for choice in per_page_choices %}
+                    <option value="{{ choice }}" {% if items_per_page == choice %}selected{% endif %}>
+                        {{ choice }}
+                    </option>
+                {% endfor %}
+            </select>
+            <input type="hidden" name="order_by" value="{{ order_by }}">
+        </form>
+    </div>
+</div>
+
 <div class="row">
     {% for sheet_music in page_obj.object_list %}
         <div class="col-sm-3 mb-4">
             <div class="card h-100">
                 <a href="{% url 'product' title_slug=sheet_music.title_slug %}">
-                    <img src="{{ sheet_music.cover_url }}" class="card-img-top" alt="{{ sheet_music.title }}" style="width: 100%; height: auto; object-fit: cover;">
+                    {% if sheet_music.cover_url and sheet_music.cover_url != "NULL" %}
+                        <img src="{{ sheet_music.cover_url }}" class="card-img-top" alt="{{ sheet_music.title }}" style="width: 100%; height: auto; object-fit: cover;">
+                    {% else %}
+                        <img src="https://placehold.co/400x400/e9ecef/495057?text={{ sheet_music.title|urlencode|truncatechars:20 }}" class="card-img-top" alt="{{ sheet_music.title }}" style="width: 100%; height: auto; object-fit: cover;">
+                    {% endif %}                
                 </a>
                 <div class="card-body">
                     <h5 class="card-title"><a href="{% url 'product' title_slug=sheet_music.title_slug %}">{{ sheet_music.title }}</a></h5>
-                    <p class="card-text">{{ sheet_music.artist }}</p>
+                    <p class="card-text">{{ sheet_music.artist }} <span class="float-end">${{ sheet_music.list_price }}</span></p>
                 </div>
             </div>
         </div>
@@ -28,21 +64,21 @@
         {% spaceless %}
         <div class="btn-group" role="group">
             {% if page_obj.has_previous %}
-                <a class="btn btn-secondary" href="?page=1">&laquo; first</a>
-                <a class="btn btn-secondary" href="?page={{ page_obj.previous_page_number }}">previous</a>
+                <a class="btn btn-secondary" href="?page=1&order_by={{ order_by }}&items_per_page={{ items_per_page }}">&laquo; first</a>
+                <a class="btn btn-secondary" href="?page={{ page_obj.previous_page_number }}&order_by={{ order_by }}&items_per_page={{ items_per_page }}">previous</a>
             {% endif %}
 
             {% for i in page_obj.paginator.page_range %}
                 {% if page_obj.number == i %}
                     <button type="button" class="btn btn-primary">{{ i }}</button>
                 {% elif i > page_obj.number|add:"-5" and i < page_obj.number|add:"5" %}
-                    <a class="btn btn-secondary" href="?page={{ i }}">{{ i }}</a>
+                    <a class="btn btn-secondary" href="?page={{ i }}&order_by={{ order_by }}&items_per_page={{ items_per_page }}">{{ i }}</a>
                 {% endif %}
             {% endfor %}
 
             {% if page_obj.has_next %}
-                <a class="btn btn-secondary" href="?page={{ page_obj.next_page_number }}">next</a>
-                <a class="btn btn-secondary" href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                <a class="btn btn-secondary" href="?page={{ page_obj.next_page_number }}&order_by={{ order_by }}&items_per_page={{ items_per_page }}">next</a>
+                <a class="btn btn-secondary" href="?page={{ page_obj.paginator.num_pages }}&order_by={{ order_by }}&items_per_page={{ items_per_page }}">last &raquo;</a>
             {% endif %}
         </div>
         {% endspaceless %}
